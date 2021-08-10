@@ -1,0 +1,83 @@
+                            Import statement 
+=> Why we have to manually import React and ReacrDOM? Coz We are using 'create react app' , we are using a bundler system called 'Webpack'. Every file that we create inside our project is essentially its own tiny little universe. Any code that we write inside the file(e.g. index.js) is not going to be automatically shared or made available with other files and vice versa. So in other words, if we want to get access to any libraries or any other code that we write inside of our project, we have to write an import statement.  
+=> Just write the librarie folder name which is inside  node_modules folder for the path of the libraries that u want to import e.x. from 'react'; We write just 'react' coz  librarie folder name is 'react'  
+=> NOTE: Make use of import statement is a reference to module system called ES2015 Modules     
+
+                            React component
+=> Is a function or a class
+=> The purpose of the React component:
+    => is to produce HTML that we re going to show to the user. We do it by writing JSX.
+    => is to handle feedback from the user, ex. anytime users click or type or drag or any type of events. We use event handlers.
+    
+                                    What is JSX?
+=> NOTE: Special dialect of JS (it's not HTML)
+=> Browsers don't understand JSX code!! We write JSX, then run tools(Babel) to turn it into normal JS
+=> Very similar in form and function to HTML with a couple of differences.
+=> When we take this JS file :
+
+Code in our js file(JSX form): 
+const App = () => {
+  return <div>Hi there!</div>;
+};
+
+Code when it gets covert into JS code by Babel: 
+const App = () => {
+  return /*#__PURE__*/React.createElement("div", null, "Hi there!");
+
+
+        and ship it down to our users browser. It does not contain this JSX in here that looks like HTML tag. Your browser and no user's browser understands what JSX is. Before JSX get sent down to a user's browser, it gets converted to a normal looking Javascript code by Babel. Why don't we just write out a lot of funtion calls, instead of returning HTML code? The answer is that if we a little bit more complicated component ex. <div><ul><li></li></ul></div>. When we look at this component in JSX form, it's easier to tell what's going on. So the entire purpose of the JSX is to allow us to write out the confusing JS function calls in a much easier to understand format.
+=> Can try Babel out : Go to babeljs.io -> Try it out
+=> When u use React, it's highly reccomented to use JSX.
+=> NOTE: Special dialect of JS (not HTML)
+=> Browsers don't understand JSX code! We write JSX then run tools(Babel) to run it into normal JS.
+=> Very similar in form and function to HTML with a couple differences.
+
+
+                                    JSX vs  HTML
+There are few things that can be done differently between JSx and HTML :
+
+1) Adding custom styling to an elemrnt uses different syntax:
+=> HTML: < div style="background-color: blue; color: white;"> </div>
+=> JSX : < div style={{backgroundColor: 'blue'}}> </div>
+=> HTML: < div style="border: 1px solid red;"> </div>
+=> JSX : < div style={{border: '1px solid red'}}> </div>
+NOTE: The outer {} indicates that we want reference a JS variable inside of our JSX. The inner {} is meant to indicate a JS object. So when we do styling with JSX, we gonna have to provide a JS object where all the keys of the object(background-color, color) reference a different property that we want to stlye and the values indicate the value for that particular styling.
+NOTE: A thing that we need to be aware of is the name of the keys ex. background-color => backgroundColor. NO special characters(-) in the key names, otherwise will get error.
+
+NOTE:  how to use " " OR ' '
+=> In JSX we use "" anytime when we want to indicate a string ex. id="name", type="text" 
+=> But with any non JSX property by the convention of the JS community, we make use of ' ' ex. style={{border: '1px solid red'}}>  BUT we can use " " as well ex. style={{border: "1px solid red"}}>
+
+2) Adding a class to an element uses different syntax:
+=> In JSX, when we want to assign a class arttribute, we don't use keyword class but 'className'
+=> We use 'className' just to avoid the collision with the keyword 'class' ex. class App.
+=> We don't want JS to get confused and think that we are trying to define a new JS class
+
+3) JSX can reference JS variables:
+=> Means that we can take a JS variable, NOT an object,  and easily printed up inside of our JSX block.
+=> We make an example in the App function, by creating const buttonText = 'Click me'; and will use it in <button>
+=> We want use text 'Click me' instead of 'Submit' in <button>. So we type {buttonText} instead of Submit
+=> The {} indicates that we want to reference a JS variable
+=> If we want to reference to a function variable, do like this -> {getButtonText()}
+=> different type of variables we can reference inside of JSX: 
+    => String
+    => Number
+    => Array : 
+        ex. const buttonText = ['click', 'me'] -> {buttonText} -> output = clickme
+        ex. const buttonText = [1, 2] -> {buttonText} -> output = 12
+    => Function
+=> Type of variables we can NOT reference inside of JSX: 
+    => Variable of object where we would show TEXT.
+        ex. const buttonText = {text: 'Click me!'} -> 
+        <button style={{ backgroundColor: 'blue', color: 'white' }}> {buttonText} </button>
+        -> Output = error
+        ex. error = Objects are not valid as a React child (found: object with keys {text}). If you meant to render a collection of children, use an array instead.
+
+        NOTE: Explenation: We want React to show the text 'Click me!' in the text area of <button>, so we do {buttonText}. But {buttonText} references an object, not the text in the object, so react don't know how to deal with that. So we are not allowed to take a JS object and reference it inside of JSX specificly where we would normally show TEXT. The way to get the text is to do buttonText.text
+    => How to FIX
+     ex.  const buttonText = {text: 'Click me!'} -> {buttonText.text} -> output = Click me!
+     NOTE: We can't show the object as text problem, can also explain why we use double paranthesis with 
+     style={{ backgroundColor: 'blue', color: 'white' }}, is coz technicallly we can't show a JS object as an attribute on an element. Now if we look back at this style property, we are saying we want to reference a JS variable for this style property, and the value that we pass in is a JS object. If we wanted to, we could create a variable const style = { backgroundColor: 'blue', color: 'white' }; and the do  <button style={style}>. So clearly we CAN use JS object as long as we 're not trying to print them up as text.
+     
+
+
